@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 5 – Light Legs & Arms (Neck‑Friendly) Workout</title>
+  <style>
+    /* Consistent styling across Mark's program */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+    }
+    .header {
+      background-color: #222;
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+      border-bottom: 1px solid #333;
+    }
+    .container {
+      max-width: 650px;
+      margin: 1rem auto;
+      background-color: rgba(17,17,17,0.9);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 18px;
+      backdrop-filter: blur(12px);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.03),
+                  inset 0 -2px 4px rgba(0,0,0,0.3),
+                  0 2px 6px rgba(0,0,0,0.4);
+      position: relative;
+      padding: 1.25rem;
+    }
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: inherit;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(0,0,0,0.35));
+      pointer-events: none;
+      z-index: 0;
+    }
+    .back-link {
+      display: block;
+      color: #00b894;
+      text-decoration: none;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .info p {
+      margin: 0.5rem 0;
+      line-height: 1.4;
+      color: #ccc;
+    }
+    .info strong {
+      display: inline-block;
+      min-width: 120px;
+      color: #fff;
+    }
+    .exercise-cards {
+      margin-top: 1.5rem;
+    }
+    .exercise-card {
+      /* Match the original program's modern card styling and subtle depth */
+      background: #0c0f12;
+      background: linear-gradient(135deg, #0c0f12 0%, #151a20 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      /* Ensure cards have a consistent minimum height with flexible content */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 120px;
+      height: auto;
+      opacity: 0.8;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Faint radial gradient inside each card to mimic the original design */
+    .exercise-card::before {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(0, 184, 148, 0.4) 0%, rgba(0, 184, 148, 0.2) 40%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(20px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .exercise-card:hover {
+      background-color: #14181d;
+    }
+    .exercise-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .exercise-name {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #fff;
+      margin-right: 0.5rem;
+      flex: 1 1 auto;
+    }
+    .exercise-metadata {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 12px;
+      font-size: 0.75rem;
+      color: #ccc;
+      align-items: center;
+      /* Scale down metadata area for consistency with original design */
+      transform: scale(0.8);
+      transform-origin: right center;
+    }
+
+    /* Remove default margin on weight input inside metadata */
+    .exercise-metadata input.weight-input {
+      margin: 0;
+    }
+    .weight-input {
+      width: 60px;
+      padding: 0.25rem 0.4rem;
+      border: 1px solid #444;
+      border-radius: 4px;
+      background-color: #333;
+      color: #fff;
+      font-size: 0.75rem;
+      box-sizing: border-box;
+    }
+    .exercise-notes {
+      margin-top: 0.5rem;
+      font-size: 0.65rem;
+      color: rgba(218,216,201,0.75);
+    }
+    /* Video section styles */
+    .video-section {
+      margin-top: 0.5rem;
+    }
+    .toggle-video-btn {
+      display: inline-block;
+      margin-bottom: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      background-color: #00b894;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background-color 0.2s ease;
+    }
+    .toggle-video-btn:hover {
+      background-color: #008f73;
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      background-color: #000;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .core-section, .cardio-section {
+      margin-top: 1.5rem;
+    }
+    .core-section h3, .cardio-section h3 {
+      margin-bottom: 0.5rem;
+      color: #00b894;
+      font-size: 1rem;
+    }
+    .core-section ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      list-style: disc;
+    }
+    .core-section li {
+      margin-bottom: 0.4rem;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+    .cardio-section p {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+    }
+    .start-btn {
+      display: block;
+      width: 100%;
+      background-color: #00b894;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      padding: 0.75rem 0;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-top: 2rem;
+      transition: background-color 0.2s ease;
+    }
+    .start-btn:hover {
+      background-color: #008f73;
+    }
+    .rest-timer-section {
+      display: none;
+      margin-top: 1.5rem;
+      background-color: #1b1b1b;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .rest-timer-section label {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+    .rest-timer-section .timer-input {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.5rem 0 1rem;
+    }
+    .rest-timer-section input[type="range"] {
+      flex: 1;
+      appearance: none;
+      height: 4px;
+      background: #333;
+      outline: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .rest-timer-section input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #00b894;
+      cursor: pointer;
+    }
+    .rest-timer-section input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #00b894;
+      cursor: pointer;
+      border: none;
+    }
+    #restDurationLabel {
+      color: #fff;
+      font-size: 1rem;
+      min-width: 3rem;
+      text-align: center;
+    }
+    #countdownDisplay {
+      margin-top: 0.75rem;
+      font-size: 1.2rem;
+      color: #00b894;
+      font-weight: bold;
+      min-height: 1.2rem;
+    }
+
+    /* Logo wrapper styling */
+    .logo-wrapper {
+      width: 36px;
+      height: 36px;
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .logo-wrapper .imgur-embed-pub {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Exchange button styling */
+    .exchange-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+    .exchange-btn img {
+      width: 100%;
+      height: 100%;
+    }
+    /* Add exercise button styling */
+    .add-exercise-container {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .add-exercise-btn {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      background-color: #00b894;
+      color: #111;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .add-exercise-btn:hover {
+      background-color: #008f73;
+      color: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo-wrapper">
+      <blockquote class="imgur-embed-pub" lang="en" data-id="a/VsGUO3p" data-context="false"><a href="//imgur.com/a/VsGUO3p"></a></blockquote>
+    </div>
+    <span>Day 5 – Light Legs & Arms (Neck‑Friendly)</span>
+  </div>
+  <div class="container">
+    <a href="mark_4weeksplit.html" class="back-link">← Back to overview</a>
+    <div class="info">
+      <p><strong>Duration:</strong> 60 minutes</p>
+      <p><strong>Target muscle groups:</strong> Lower body and arms (light)</p>
+      <p><strong>Exercise level:</strong> Light to moderate pace</p>
+    </div>
+    <div class="exercise-cards">
+      <!-- Exercise cards for Day 5 (Light Legs & Arms) -->
+      <div class="exercise-card">
+        <div class="exercise-header">
+          <div class="exercise-name">Leg Extension (Light)</div>
+          <div class="exercise-metadata">
+            <span>3×15</span>
+            <span>Controlled</span>
+            <span>45 s</span>
+            <span>Machine</span>
+            <span><input type="number" class="weight-input" data-exercise="leg-extension-light" min="0" step="0.5"></span>
+          </div>
+        </div>
+        <div class="exercise-notes">Use light weight; focus on full range of motion.</div>
+        <!-- Video for Leg Extension (Light) -->
+        <div class="video-section">
+          <button class="toggle-video-btn" data-target="video-leg-extension-light" type="button">Show Video ▼</button>
+          <div id="video-leg-extension-light" class="video-container" style="display: none;">
+            <iframe allow="fullscreen" allowfullscreen src="https://streamable.com/e/ht3mfk?nocontrols=1" width="100%" height="100%" style="border:none; width:100%; height:100%; position:absolute; left:0; top:0; overflow:hidden;"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-header">
+          <div class="exercise-name">Leg Curls (Light)</div>
+          <div class="exercise-metadata">
+            <span>3×15</span>
+            <span>Controlled</span>
+            <span>45 s</span>
+            <span>Machine</span>
+            <span><input type="number" class="weight-input" data-exercise="leg-curls-light" min="0" step="0.5"></span>
+          </div>
+        </div>
+        <div class="exercise-notes">Use light weight; contract hamstrings fully on each rep.</div>
+        <!-- Video for Leg Curls (Light) -->
+        <div class="video-section">
+          <button class="toggle-video-btn" data-target="video-leg-curls-light" type="button">Show Video ▼</button>
+          <div id="video-leg-curls-light" class="video-container" style="display: none;">
+            <iframe allow="fullscreen" allowfullscreen src="https://streamable.com/e/qf8vl0?nocontrols=1" width="100%" height="100%" style="border:none; width:100%; height:100%; position:absolute; left:0; top:0; overflow:hidden;"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-header">
+          <div class="exercise-name">Alternating Bicep Curls</div>
+          <div class="exercise-metadata">
+            <span>3×12/arm</span>
+            <span>Controlled</span>
+            <span>45 s</span>
+            <span>Dumbbells</span>
+            <span><input type="number" class="weight-input" data-exercise="alternating-bicep-curls" min="0" step="0.5"></span>
+          </div>
+        </div>
+        <div class="exercise-notes">Alternate arms; keep elbows close to your body; avoid swinging.</div>
+        <!-- Video for Alternating Bicep Curls -->
+        <div class="video-section">
+          <button class="toggle-video-btn" data-target="video-alternating-bicep-curls" type="button">Show Video ▼</button>
+          <div id="video-alternating-bicep-curls" class="video-container" style="display: none;">
+            <iframe allow="fullscreen" allowfullscreen src="https://streamable.com/e/4k8b9v?nocontrols=1" width="100%" height="100%" style="border:none; width:100%; height:100%; position:absolute; left:0; top:0; overflow:hidden;"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-header">
+          <div class="exercise-name">Tricep Pushdowns</div>
+          <div class="exercise-metadata">
+            <span>3×12</span>
+            <span>Controlled</span>
+            <span>45 s</span>
+            <span>Cable</span>
+            <span><input type="number" class="weight-input" data-exercise="tricep-pushdowns" min="0" step="0.5"></span>
+          </div>
+        </div>
+        <div class="exercise-notes">Keep elbows close to your sides; press down through the rope/bar.</div>
+        <!-- Video for Tricep Pushdowns -->
+        <div class="video-section">
+          <button class="toggle-video-btn" data-target="video-tricep-pushdowns" type="button">Show Video ▼</button>
+          <div id="video-tricep-pushdowns" class="video-container" style="display: none;">
+            <iframe allow="fullscreen" allowfullscreen src="https://streamable.com/e/s1mfa6?nocontrols=1" width="100%" height="100%" style="border:none; width:100%; height:100%; position:absolute; left:0; top:0; overflow:hidden;"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-header">
+          <div class="exercise-name">Preacher Curls (Machine)</div>
+          <div class="exercise-metadata">
+            <span>3×12</span>
+            <span>Slow</span>
+            <span>45 s</span>
+            <span>Machine</span>
+            <span><input type="number" class="weight-input" data-exercise="preacher-curls-machine" min="0" step="0.5"></span>
+          </div>
+        </div>
+        <div class="exercise-notes">Rest arms fully on the pad; lower slowly for full stretch.</div>
+        <!-- Video for Preacher Curls (Machine) -->
+        <div class="video-section">
+          <button class="toggle-video-btn" data-target="video-preacher-curls-machine" type="button">Show Video ▼</button>
+          <div id="video-preacher-curls-machine" class="video-container" style="display: none;">
+            <iframe allow="fullscreen" allowfullscreen src="https://streamable.com/e/r9izbr?nocontrols=1" width="100%" height="100%" style="border:none; width:100%; height:100%; position:absolute; left:0; top:0; overflow:hidden;"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="exercise-header">
+          <div class="exercise-name">Tricep Extension (Crossing Cables)</div>
+          <div class="exercise-metadata">
+            <span>3×12</span>
+            <span>Controlled</span>
+            <span>45 s</span>
+            <span>Cables</span>
+            <span><input type="number" class="weight-input" data-exercise="tricep-extension-crossing-cables" min="0" step="0.5"></span>
+          </div>
+        </div>
+        <div class="exercise-notes">Use cross cables; maintain stable elbows; extend fully.</div>
+        <!-- Video for Tricep Extension (Crossing Cables) -->
+        <div class="video-section">
+          <button class="toggle-video-btn" data-target="video-tricep-extension-crossing-cables" type="button">Show Video ▼</button>
+          <div id="video-tricep-extension-crossing-cables" class="video-container" style="display: none;">
+            <iframe allow="fullscreen" allowfullscreen src="https://streamable.com/e/xnn0o5?nocontrols=1" width="100%" height="100%" style="border:none; width:100%; height:100%; position:absolute; left:0; top:0; overflow:hidden;"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Core section removed for light legs & arms day -->
+    <div class="cardio-section">
+      <h3>Cardio</h3>
+      <p>Stairmaster – 30 min at moderate intensity.</p>
+    </div>
+    <button id="restTimerBtn" class="start-btn" type="button">Rest Timer</button>
+    <div id="restTimerSection" class="rest-timer-section">
+      <label for="restDuration">Select rest duration:</label>
+      <div class="timer-input">
+        <input type="range" id="restDuration" min="5" max="90" step="5" value="60">
+        <span id="restDurationLabel">1:00</span>
+      </div>
+      <button id="startTimerBtn" class="start-btn" type="button">Start</button>
+      <button id="stopTimerBtn" class="start-btn" type="button" disabled>Stop</button>
+      <div id="countdownDisplay"></div>
+    </div>
+  </div>
+  <script>
+    const currentDay = window.location.pathname.split('/').pop().replace('.html','');
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      return m + ':' + (s < 10 ? '0' + s : s);
+    }
+    const restBtn = document.getElementById('restTimerBtn');
+    const restSection = document.getElementById('restTimerSection');
+    const durationInput = document.getElementById('restDuration');
+    const durationLabel = document.getElementById('restDurationLabel');
+    const startBtn = document.getElementById('startTimerBtn');
+    const stopBtn = document.getElementById('stopTimerBtn');
+    const countdownDisplay = document.getElementById('countdownDisplay');
+    let countdownInterval;
+    let seconds;
+    durationLabel.textContent = formatTime(parseInt(durationInput.value));
+    stopBtn.disabled = true;
+    restBtn.addEventListener('click', () => {
+      if (restSection.style.display === 'none' || restSection.style.display === '') {
+        restSection.style.display = 'block';
+      } else {
+        restSection.style.display = 'none';
+      }
+    });
+    durationInput.addEventListener('input', () => {
+      durationLabel.textContent = formatTime(parseInt(durationInput.value));
+    });
+    startBtn.addEventListener('click', () => {
+      if (countdownInterval) clearInterval(countdownInterval);
+      seconds = parseInt(durationInput.value);
+      startBtn.disabled = true;
+      durationInput.disabled = true;
+      restBtn.disabled = true;
+      stopBtn.disabled = false;
+      countdownDisplay.textContent = formatTime(seconds);
+      countdownInterval = setInterval(() => {
+        seconds--;
+        countdownDisplay.textContent = formatTime(seconds);
+        if (seconds <= 0) {
+          clearInterval(countdownInterval);
+          countdownDisplay.textContent = 'Rest over!';
+          startBtn.disabled = false;
+          durationInput.disabled = false;
+          restBtn.disabled = false;
+          stopBtn.disabled = true;
+        }
+      }, 1000);
+    });
+    stopBtn.addEventListener('click', () => {
+      if (countdownInterval) clearInterval(countdownInterval);
+      countdownDisplay.textContent = 'Stopped at ' + formatTime(seconds);
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      durationInput.disabled = false;
+      restBtn.disabled = false;
+      durationInput.value = seconds;
+      durationLabel.textContent = formatTime(seconds);
+    });
+    document.querySelectorAll('.weight-input').forEach(input => {
+      const exercise = input.getAttribute('data-exercise');
+      const key = currentDay + '_' + exercise;
+      const stored = localStorage.getItem(key);
+      if (stored !== null) {
+        input.value = stored;
+      }
+      input.addEventListener('input', function() {
+        localStorage.setItem(key, this.value);
+      });
+    });
+
+    // Toggle display of exercise videos
+    document.querySelectorAll('.toggle-video-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = btn.getAttribute('data-target');
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const currentlyHidden = target.style.display === 'none' || target.style.display === '';
+        target.style.display = currentlyHidden ? 'block' : 'none';
+        // Update button text based on state
+        btn.textContent = currentlyHidden ? 'Hide Video ▲' : 'Show Video ▼';
+      });
+    });
+
+    // ---------------------------------------------------------------------
+    // Exchange and add-exercise buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const dayPrefixForLinks = currentDay;
+      const allCards = document.querySelectorAll('.exercise-card, .sports-card');
+      allCards.forEach((card, idx) => {
+        if (!card.querySelector('.exchange-btn')) {
+          const link = document.createElement('a');
+          link.href = `mark_exerciselibrary.html?day=${dayPrefixForLinks}&index=${idx}&mode=exchange`;
+          link.classList.add('exchange-btn');
+          const img = document.createElement('img');
+          img.src = 'https://i.ibb.co/hFCZkbrM/exerciseiconv1.png';
+          img.alt = 'Exchange';
+          link.appendChild(img);
+          card.appendChild(link);
+        }
+      });
+      document.querySelectorAll('.exercise-cards').forEach(container => {
+        let next = container.nextElementSibling;
+        if (next && next.classList && next.classList.contains('add-exercise-container')) {
+          return;
+        }
+        const addContainer = document.createElement('div');
+        addContainer.classList.add('add-exercise-container');
+        const plus = document.createElement('a');
+        plus.href = `mark_exerciselibrary.html?day=${dayPrefixForLinks}&mode=add`;
+        plus.classList.add('add-exercise-btn');
+        plus.textContent = '+';
+        addContainer.appendChild(plus);
+        if (container.nextSibling) {
+          container.parentNode.insertBefore(addContainer, container.nextSibling);
+        } else {
+          container.parentNode.appendChild(addContainer);
+        }
+      });
+    });
+
+    // ---------------------------------------------------------------------
+    // Handle exercises selected from the Exercise Library
+    (function() {
+      const pendingJSON = localStorage.getItem('pendingAction');
+      if (!pendingJSON) return;
+      let pending;
+      try {
+        pending = JSON.parse(pendingJSON);
+      } catch (e) {
+        console.error('Invalid pendingAction data');
+        return;
+      }
+      if (!pending || !pending.day || pending.day !== currentDay) return;
+      const data = pending.data || {};
+      const index = pending.index;
+      function slugify(str) {
+        return String(str || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      }
+      const container = document.querySelector('.exercise-cards');
+      if (!container) {
+        localStorage.removeItem('pendingAction');
+        return;
+      }
+      const card = document.createElement('div');
+      card.classList.add('exercise-card');
+      const headerDiv = document.createElement('div');
+      headerDiv.classList.add('exercise-header');
+      const nameDiv = document.createElement('div');
+      nameDiv.classList.add('exercise-name');
+      nameDiv.textContent = data.name || '';
+      headerDiv.appendChild(nameDiv);
+      const metaDiv = document.createElement('div');
+      metaDiv.classList.add('exercise-metadata');
+      const setsVal = data.sets || '—';
+      const tempoVal = data.tempo || '—';
+      const restVal = data.rest || '—';
+      const equipVal = data.equipment || '—';
+      const exerciseSlug = slugify(data.name);
+      metaDiv.innerHTML = `<span>${setsVal}</span>` + `<span>${tempoVal}</span>` + `<span>${restVal}</span>` + `<span>${equipVal}</span>` + `<span><input type="number" class="weight-input" data-exercise="${exerciseSlug}" min="0" step="0.5"></span>`;
+      headerDiv.appendChild(metaDiv);
+      card.appendChild(headerDiv);
+      if (data.notes) {
+        const notesDiv = document.createElement('div');
+        notesDiv.classList.add('exercise-notes');
+        notesDiv.textContent = data.notes;
+        card.appendChild(notesDiv);
+      }
+      if (data.video) {
+        const videoSec = document.createElement('div');
+        videoSec.classList.add('video-section');
+        const btn = document.createElement('button');
+        btn.classList.add('toggle-video-btn');
+        const vidId = 'video-' + exerciseSlug + '-' + Date.now();
+        btn.setAttribute('data-target', vidId);
+        btn.textContent = 'Show Video ▼';
+        videoSec.appendChild(btn);
+        const vidCont = document.createElement('div');
+        vidCont.id = vidId;
+        vidCont.classList.add('video-container');
+        vidCont.style.display = 'none';
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('allow', 'fullscreen');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.src = data.video;
+        iframe.style.border = 'none';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.position = 'absolute';
+        iframe.style.left = '0';
+        iframe.style.top = '0';
+        iframe.style.overflow = 'hidden';
+        vidCont.appendChild(iframe);
+        videoSec.appendChild(vidCont);
+        card.appendChild(videoSec);
+      }
+      const cards = Array.from(container.querySelectorAll('.exercise-card, .sports-card'));
+      if (pending.mode === 'exchange' && typeof index === 'number' && index >= 0 && index < cards.length) {
+        container.replaceChild(card, cards[index]);
+      } else {
+        container.appendChild(card);
+      }
+      localStorage.removeItem('pendingAction');
+      card.querySelectorAll('.weight-input').forEach(input => {
+        const exercise = input.getAttribute('data-exercise');
+        const key = currentDay + '_' + exercise;
+        const stored = localStorage.getItem(key);
+        if (stored !== null) {
+          input.value = stored;
+        }
+        input.addEventListener('input', function() {
+          localStorage.setItem(key, this.value);
+        });
+      });
+      card.querySelectorAll('.toggle-video-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const tId = btn.getAttribute('data-target');
+          const tCont = document.getElementById(tId);
+          if (!tCont) return;
+          const hidden = tCont.style.display === 'none' || tCont.style.display === '';
+          tCont.style.display = hidden ? 'block' : 'none';
+          btn.textContent = hidden ? 'Hide Video ▲' : 'Show Video ▼';
+        });
+      });
+      const exchLink = document.createElement('a');
+      exchLink.href = `mark_exerciselibrary.html?day=${currentDay}&index=${cards.length}&mode=exchange`;
+      exchLink.classList.add('exchange-btn');
+      const exchImg = document.createElement('img');
+      exchImg.src = 'https://i.ibb.co/hFCZkbrM/exerciseiconv1.png';
+      exchImg.alt = 'Exchange';
+      exchLink.appendChild(exchImg);
+      card.appendChild(exchLink);
+    })();
+  </script>
+  <!-- Embed script for Imgur logo -->
+  <script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+</body>
+</html>
